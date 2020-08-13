@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const ContactForm = ({ firstname, lastname, email, phone, handleSubmit }) => {
-    const [lFirstname, setFirstname] = useState(firstname);
-    const [lLastname, setLastname] = useState(lastname);
-    const [lEmail, setEmail] = useState(email);
-    const [lPhone, setPhone] = useState(phone);
+    const [lFirstname, setFirstname] = useState(firstname || '');
+    const [lLastname, setLastname] = useState(lastname || '');
+    const [lEmail, setEmail] = useState(email || '');
+    const [lPhone, setPhone] = useState(phone || '');
+
+    const history = useHistory();
 
     return (
         <div style={{ border: '2px solid #337AB7' }}>
@@ -73,9 +76,27 @@ const ContactForm = ({ firstname, lastname, email, phone, handleSubmit }) => {
                         />
                     </div>
 
-                    <button className="btn btn-warning mb-4">Cancel</button>
-                    <button className="btn btn-primary mb-4 mx-2">Submit</button>
-                    <button className="btn btn-danger mb-4">Delete</button>
+                    <button
+                        className="btn btn-warning mb-4"
+                        onClick={() => {
+                            history.push('/');
+                        }}
+                        type="button"
+                    >
+                        Cancel
+                    </button>
+                    <button className="btn btn-primary mb-4 mx-2" type="submit">
+                        Submit
+                    </button>
+                    <button
+                        className="btn btn-danger mb-4"
+                        onClick={() => {
+                            history.push('/');
+                        }}
+                        type="button"
+                    >
+                        Delete
+                    </button>
                 </form>
             </div>
         </div>

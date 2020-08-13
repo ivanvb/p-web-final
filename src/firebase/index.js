@@ -12,8 +12,6 @@ const firebaseConfig = {
     appId: process.env.REACT_APP_APP_ID,
 };
 
-console.log(JSON.stringify(firebaseConfig), JSON.stringify(firebaseConfig2));
-
 class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
@@ -27,6 +25,40 @@ class Firebase {
 
     signIn = async (email, password) => {
         await this.auth.signInWithEmailAndPassword(email, password);
+    };
+
+    signOut = async () => {
+        await this.auth.signOut();
+    };
+
+    addContact = async (contact) => {
+        await this.db.ref('contacts').push({
+            ...contact,
+        });
+    };
+
+    updateContact = async (id, contact) => {
+        await this.db
+            .ref('contacts')
+            .child(id)
+            .update({
+                ...contact,
+            });
+    };
+
+    deleteContact = async (id) => {
+        await this.db.ref('contacts').child(id).remove();
+    };
+    contactsRef = () => {
+        return this.db.ref('contacts');
+    };
+
+    getUser = (id) => {
+        return new Promise((resolve, reject) => {
+            this.db.ref(`contacts/${id}`).once('value', (snap) => {
+                resolve(snap.val());
+            });
+        });
     };
 
     getCurrentUser() {

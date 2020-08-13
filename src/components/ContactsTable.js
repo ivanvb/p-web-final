@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { fb } from '../firebase/index';
 
 const ContactsTable = ({ contacts }) => {
     const history = useHistory();
@@ -36,7 +37,7 @@ const ContactsTable = ({ contacts }) => {
                             <button
                                 className="btn btn-danger"
                                 onClick={() => {
-                                    //delete
+                                    fb.deleteContact(contact.id);
                                 }}
                             >
                                 Delete
