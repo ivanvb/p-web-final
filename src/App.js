@@ -10,9 +10,13 @@ import Home from './pages/Home';
 
 const App = () => {
     useEffect(() => {
-        if (window.localStorage.getItem('logged')) {
+        if (
+            !!window.localStorage.getItem('logged') ||
+            !!window.localStorage.getItem('first') === false
+        ) {
             fb.signOut().then(() => {
-                window.localStorage.clear();
+                window.localStorage.removeItem('logged');
+                window.localStorage.setItem('first', true);
                 window.location.href = '/login';
             });
         }
