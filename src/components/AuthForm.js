@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-const AuthForm = ({ title = 'Sign In', handleSubmit }) => {
+const AuthForm = ({ title = 'Sign In', handleSubmit, otherAction }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -47,6 +48,8 @@ const AuthForm = ({ title = 'Sign In', handleSubmit }) => {
                 </div>
 
                 <button className="btn btn-primary mb-4 btn-block">Submit</button>
+
+                <Link to={otherAction.link}>{otherAction.name}</Link>
             </form>
         </div>
     );

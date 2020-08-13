@@ -8,12 +8,22 @@ const SignUp = () => {
     const handleSubmit = async (email, password) => {
         try {
             await fb.createUser(email, password);
+            window.localStorage.setItem('logged', true);
             history.push('/');
         } catch (err) {
             alert('There was an error creating your account');
         }
     };
-    return <AuthForm handleSubmit={handleSubmit} title="Sign Up" />;
+    return (
+        <AuthForm
+            handleSubmit={handleSubmit}
+            title="Sign Up"
+            otherAction={{
+                name: 'Log In',
+                link: '/login',
+            }}
+        />
+    );
 };
 
 export default SignUp;
